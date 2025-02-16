@@ -1874,6 +1874,7 @@ satus.components.colorPicker = function (component, skeleton) {
 					}
 				}
 			},
+			
 			section: {
 				component: 'section',
 				variant: 'color',
@@ -1902,8 +1903,38 @@ satus.components.colorPicker = function (component, skeleton) {
 							this.parentNode.previousSibling.style.backgroundColor = 'hsl(' + hsl[0] + 'deg, 100%, 50%)';
 						}
 					}
+				},
+
+				colorInput: {
+					component: 'input',
+					type: 'text',
+					class: 'satus-color-picker__input',
+					value: `rgb(${this.color.value.join(', ')})`,
+					on: {
+						input: function () {
+							let inputValue = this.value.trim();
+							let rgb = null;
+
+							if (/^#([0-9A-F]{3}){1,2}$/i.test(inputValue)) {
+								rgb = satus.color.hexToRgb(inputValue);
+							} 
+							else if (/^rgb\(\d+\s*,\s*\d+\s*,\s*\d+\)$/i.test(inputValue)) {
+								rgb = inputValue.match(/\d+/g).map(Number);
+							}
+		
+							if (rgb && rgb.length === 3) {
+								let hsl = satus.color.rgbToHsl(rgb);
+								let modal = this.skeleton.parentSkeleton.parentSkeleton;
+								modal.value = hsl;
+		
+								this.previousSibling.style.backgroundColor = 'hsl(' + hsl[0] + 'deg,' + hsl[1] + '%, ' + hsl[2] + '%)';
+								this.parentElement.previousSibling.style.backgroundColor = 'hsl(' + hsl[0] + 'deg, 100%, 50%)';
+							}
+						}
+					}
 				}
 			},
+
 			actions: {
 				component: 'section',
 				variant: 'actions',
@@ -1923,6 +1954,7 @@ satus.components.colorPicker = function (component, skeleton) {
 						}
 					}
 				},
+
 				cancel: {
 					component: 'button',
 					text: 'cancel',
@@ -1932,6 +1964,7 @@ satus.components.colorPicker = function (component, skeleton) {
 						}
 					}
 				},
+				
 				ok: {
 					component: 'button',
 					text: 'OK',

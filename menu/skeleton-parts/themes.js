@@ -93,6 +93,11 @@ extension.skeleton.main.layers.section.themes.on.click.section = {
 							component: 'color-picker',
 							text: 'textColor',
 							value: [25, 25, 25]
+						},
+						theme_header_color: {
+							component: 'color-picker',
+							text: 'Header color',
+							value: [100, 100, 100]
 						}
 					}
 				}

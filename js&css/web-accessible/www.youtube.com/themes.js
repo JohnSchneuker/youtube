@@ -6,6 +6,7 @@ ImprovedTube.myColors = function () {
 		var style = this.elements.my_colors || document.createElement('style'),
 			primary_color = this.storage.theme_primary_color,
 			text_color = this.storage.theme_text_color;
+			header_color = this.storage.theme_header_color;
 
 		if (primary_color) {
 			primary_color = 'rgb(' + primary_color.join(',') + ')';
@@ -19,6 +20,13 @@ ImprovedTube.myColors = function () {
 		} else {
 			// need better central place for storing default custom profile colors
 			text_color = 'rgb(25, 25, 25)';
+		}
+
+		if (header_color) {
+			header_color = 'rgb(' + header_color.join(',') + ')';
+		} else {
+			// need better central place for storing default custom profile colors
+			header_color = 'rgb(100, 100, 100)';
 		}
 
 		style.className = 'it-theme-editor';
@@ -68,6 +76,10 @@ ImprovedTube.myColors = function () {
 					'--ytd-searchbox-background:' + primary_color + '!important;' +
 					'--ytd-searchbox-legacy-button-color:' + 'var(--yt-spec-brand-background-primary)' + '!important;' +
 					'background-color: var(--yt-spec-base-background)!important;' +
+					'}' +
+					
+					'ytd-masthead, #masthead-container, #masthead {' +
+					'background-color:' + header_color + '!important;' +
 					'}';
 
 		this.elements.my_colors = style;
